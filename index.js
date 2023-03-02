@@ -1,5 +1,5 @@
 const express = require("express");
-
+const crypto = require("crypto");
 const { connection } = require("./configs/db");
 
 const cors = require("cors");
@@ -11,8 +11,15 @@ app.use(express.json());
 
 app.use(cors({ origin: "*" }));
 
+let char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let len = 6;
+
 app.get("/", (req, res) => {
-  res.send("Welcome");
+  const randomWords = crypto.randomBytes(len);
+  const temp = Array.from(randomWords)
+    .map((el) => char[el % char.length])
+    .join("");
+  res.send(temp);
 });
 
 app.listen(process.env.port, async () => {
