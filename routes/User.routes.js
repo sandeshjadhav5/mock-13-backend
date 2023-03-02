@@ -9,7 +9,7 @@ userRouter.post("/", async (req, res) => {
   try {
     const user = new UserModel({ name, score, difficulty });
     await user.save();
-    res.send("User Added");
+    res.send("User Added to DB");
   } catch (err) {
     console.log(err);
   }

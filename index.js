@@ -1,6 +1,7 @@
 const express = require("express");
 const crypto = require("crypto");
 const { connection } = require("./configs/db");
+const { userRouter } = require("./routes/User.routes");
 
 const cors = require("cors");
 require("dotenv").config();
@@ -21,6 +22,8 @@ app.get("/", (req, res) => {
     .join("");
   res.send(temp);
 });
+
+app.use("/users", userRouter);
 
 app.listen(process.env.port, async () => {
   try {
